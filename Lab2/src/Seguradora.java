@@ -5,7 +5,7 @@ public class Seguradora
 	private String email;
 	private String endereco;
 	
-	// Construtor
+	// Constructor
 	public Seguradora(String nome, String telefone, String email, String endereco)
 	{
 		this.nome = nome;
@@ -52,5 +52,10 @@ public class Seguradora
 	public void setEndereco(String endereco)
 	{
 		this.endereco = endereco;
+	}
+	
+	public String toString()
+	{
+		return "Nome: " + nome + "\nEndereco: " + endereco + "\nEmail: " + email + "\nTelefone: " + telefone;
 	}
 }

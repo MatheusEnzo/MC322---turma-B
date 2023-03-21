@@ -41,4 +41,9 @@ public class Veiculo
 	{
 		this.modelo = modelo;
 	}
+	
+	public String toString()
+	{
+		return "Marca: " + marca + "\nModelo: " + modelo + "\nPlaca: " + placa;
+	}
 }

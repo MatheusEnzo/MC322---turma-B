@@ -14,11 +14,6 @@ public class Cliente
 		this.idade = idade;
 		this.endereco = endereco;
 		this.cpf = cpf.replaceAll("[^0-9]", "");
-		
-		if(!validarCPF(cpf))
-		{
-			
-		}
 	}
 
 	boolean validarCPF(String cpf)
@@ -79,5 +74,10 @@ public class Cliente
 	public void setEndereco(String endereco)
 	{
 		this.endereco = endereco;
+	}
+	
+	public String toString(Cliente cliente)
+	{
+		
 	}
 }
