@@ -4,12 +4,20 @@ public class Sinistro
 	private String data;
 	private String endereco;
 	
+	private static int contador = 0;
+	
 	// Constructor
-	public Sinistro(int id, String data, String endereco)
+	public Sinistro(String data, String endereco)
 	{
-		this.id = id;
+		this.id = gerarID();
 		this.data = data;
 		this.endereco = endereco;
+	}
+	
+	// Geracao de id inteiro unico
+	private static int gerarID()
+	{
+		return contador++;
 	}
 	
 	// Getters e setters
@@ -23,7 +31,8 @@ public class Sinistro
 		this.id = id;
 	}
 
-	public String getData() {
+	public String getData()
+	{
 		return data;
 	}
 
@@ -40,5 +49,10 @@ public class Sinistro
 	public void setEndereco(String endereco)
 	{
 		this.endereco = endereco;
+	}
+	
+	public String toString()
+	{
+		return "ID: " + id + "\nData: " + data + "\nEndereco: " + endereco;
 	}
 }

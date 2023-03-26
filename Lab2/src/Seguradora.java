@@ -35,7 +35,8 @@ public class Seguradora
 		this.telefone = telefone;
 	}
 
-	public String getEmail() {
+	public String getEmail()
+	{
 		return email;
 	}
 

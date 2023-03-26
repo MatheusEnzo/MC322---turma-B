@@ -5,7 +5,7 @@ public class Cliente
 	private String dataNascimento;
 	private int idade;
 	private String endereco;
-	
+
 	// Constructor
 	public Cliente(String nome, String cpf, String dataNascimento, int idade, String endereco)
 	{
@@ -16,16 +16,60 @@ public class Cliente
 		this.cpf = cpf.replaceAll("[^0-9]", "");
 	}
 
-	boolean validarCPF(String cpf)
+	public boolean validarCPF(String cpf)
 	{
+		// Verifica se o cpf possui 11 digitos
 		if(cpf.length() != 11)
 		{
 			return false;
 		}
 		
-		return true;
+		// Verifica se todos os digitos sao iguais 
+		char c = cpf.charAt(0);
+		boolean diferente = false;
+	    for(int i=1; i<11; i++)
+	    {
+	        if(cpf.charAt(i)!=c)
+	        {
+	            diferente = true;
+	            break;
+	        }
+	    }
+		if(!diferente)
+		{
+			return false;
+		}
+		
+		// Calcula o primeiro dígito verificador
+	    int soma = 0;
+	    for(int i=0; i<9; i++)
+	    {
+	        int num = cpf.charAt(i) - '0';
+	        soma += num * (10 - i);
+	    }
+	    int digito1 = 11 - (soma % 11);
+	    if(digito1 > 9)
+	    {
+	        digito1 = 0;
+	    }
+	    
+	    // Calcula o segundo dígito verificador
+	    soma = 0;
+	    for (int i=0; i<10; i++)
+	    {
+	        int num = cpf.charAt(i) - '0';
+	        soma += num * (11 - i);
+	    }
+	    int digito2 = 11 - (soma % 11);
+	    if(digito2>9)
+	    {
+	        digito2 = 0;
+	    }
+	    
+	    // Verifica se os dígitos verificadores são iguais aos do CPF
+	    return cpf.charAt(9) - '0' == digito1 && cpf.charAt(10) - '0' == digito2;
 	}
-	
+
 	// Getters e setters
 	public String getNome()
 	{
@@ -57,7 +101,8 @@ public class Cliente
 		this.dataNascimento = dataNascimento;
 	}
 
-	public int getIdade() {
+	public int getIdade()
+	{
 		return idade;
 	}
 
@@ -75,9 +120,9 @@ public class Cliente
 	{
 		this.endereco = endereco;
 	}
-	
-	public String toString(Cliente cliente)
+
+	public String toString()
 	{
-		
+		return "Nome: " + nome + "\nCPF: " + cpf + "\nData de Nascimento: " + dataNascimento + "\nIdade: " + idade + "\nEndereco: " + endereco;
 	}
 }
