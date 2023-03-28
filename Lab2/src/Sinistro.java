@@ -14,7 +14,7 @@ public class Sinistro
 		this.endereco = endereco;
 	}
 	
-	// Geracao de id inteiro unico
+	// Metodo gerador de id inteiro unico
 	private static int gerarID()
 	{
 		return contador++;
@@ -51,6 +51,7 @@ public class Sinistro
 		this.endereco = endereco;
 	}
 	
+	// Devolve a string no formato para impressao
 	public String toString()
 	{
 		return "ID: " + id + "\nData: " + data + "\nEndereco: " + endereco;

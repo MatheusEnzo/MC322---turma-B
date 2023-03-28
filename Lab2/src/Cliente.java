@@ -15,7 +15,8 @@ public class Cliente
 		this.endereco = endereco;
 		this.cpf = cpf.replaceAll("[^0-9]", "");
 	}
-
+	
+	// Metodo para validar CPF, retornando falso se for invalido
 	public boolean validarCPF(String cpf)
 	{
 		// Verifica se o cpf possui 11 digitos
@@ -120,7 +121,8 @@ public class Cliente
 	{
 		this.endereco = endereco;
 	}
-
+	
+	// Devolve a string no formato para impressao
 	public String toString()
 	{
 		return "Nome: " + nome + "\nCPF: " + cpf + "\nData de Nascimento: " + dataNascimento + "\nIdade: " + idade + "\nEndereco: " + endereco;

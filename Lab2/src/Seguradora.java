@@ -55,6 +55,7 @@ public class Seguradora
 		this.endereco = endereco;
 	}
 	
+	// Devolve a string no formato para impressao
 	public String toString()
 	{
 		return "Nome: " + nome + "\nEndereco: " + endereco + "\nEmail: " + email + "\nTelefone: " + telefone;

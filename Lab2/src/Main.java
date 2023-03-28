@@ -2,12 +2,15 @@ public class Main
 {
 	public static void main(String[] args)
 	{
+		// Teste manual da classe veiculos
 		Veiculo veiculo1 = new Veiculo("ABC1234", "Nissan", "March");
 		System.out.println(veiculo1 + "\n");
 		
+		// Teste manual da classe veiculos
 		Seguradora seguradora1 = new Seguradora("Seguro1", "(19) 54687355", "seguro@email.com", "Rua A, 1235");
 		System.out.println(seguradora1 + "\n");
 		
+		// Teste manual da classe, em particular, teste do metodo de gerar de IDs
 		Sinistro sinistro1 = new Sinistro("22/03/23", "Rua B, 12");
 		System.out.println(sinistro1 + "\n");
 		
@@ -17,6 +20,7 @@ public class Main
 		Sinistro sinistro3 = new Sinistro("24/03/23", "Rua D, 34");
 		System.out.println(sinistro3 + "\n");
 		
+		// Teste manual do cadastro de clientes, em particular, teste do verificador de CPF
 		Cliente cliente1 =  new Cliente("Cliente 1", "36742225157", "23/04/1999", 24, "Rua AB, 41");
 		if(cliente1.validarCPF(cliente1.getCpf()))
 		{

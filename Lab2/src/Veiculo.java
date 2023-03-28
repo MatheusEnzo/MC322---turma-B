@@ -43,6 +43,7 @@ public class Veiculo
 		this.modelo = modelo;
 	}
 	
+	// Devolve a string no formato para impressao
 	public String toString()
 	{
 		return "Marca: " + marca + "\nModelo: " + modelo + "\nPlaca: " + placa;
