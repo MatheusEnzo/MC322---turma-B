@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 
 public class ClientePF extends Cliente
@@ -8,7 +8,7 @@ public class ClientePF extends Cliente
 
 	public ClientePF (String nome, String endereco, Date dataLicenca,
 	String educacao, String genero, String classeEconomica,
-	ArrayList <Veiculo> listaVeiculos, String cpf, Date dataNascimento)
+	List <Veiculo> listaVeiculos, String cpf, Date dataNascimento)
 	{
 		// chama o construtor da superclasse
 		super (nome, endereco, dataLicenca, educacao, genero, classeEconomica, listaVeiculos);

@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 
 public class ClientePJ extends Cliente
@@ -8,7 +8,7 @@ public class ClientePJ extends Cliente
 	
 	public ClientePJ (String nome, String endereco, Date dataLicensa,
 	String educacao, String genero, String classeEconomica,
-	ArrayList <Veiculo> listaVeiculos, String cnpj, Date dataFundacao)
+	List <Veiculo> listaVeiculos, String cnpj, Date dataFundacao)
 	{
 		super (nome, endereco, dataLicensa, educacao, genero, classeEconomica, listaVeiculos);
 		

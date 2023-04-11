@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.List;
 
 public class Seguradora
 {
@@ -6,8 +7,8 @@ public class Seguradora
 	private String telefone;
 	private String email;
 	private String endereco;
-	private LinkedList<Sinistro> listaSinistros;
-	private LinkedList<Cliente> listaClientes;
+	private List<Sinistro> listaSinistros;
+	private List<Cliente> listaClientes;
 	
 	// Constructor
 	public Seguradora(String nome, String telefone, String email, String endereco)
@@ -16,6 +17,8 @@ public class Seguradora
 		this.telefone = telefone;
 		this.email = email;
 		this.endereco = endereco;
+		this.listaSinistros = new LinkedList<Sinistro>();
+		this.listaClientes = new LinkedList<Cliente>();
 	}
 
 	// Getters e setters
@@ -59,20 +62,20 @@ public class Seguradora
 		this.endereco = endereco;
 	}
 	
-	public LinkedList<Sinistro> getListaSinistros()
+	public List<Sinistro> getListaSinistros()
 	{
 		return listaSinistros;
 	}
-	public void setListaSinistros(LinkedList<Sinistro> listaSinistros)
+	public void setListaSinistros(List<Sinistro> listaSinistros)
 	{
 		this.listaSinistros = listaSinistros;
 	}
 
-	public LinkedList<Cliente> getListaClientes()
+	public List<Cliente> getListaClientes()
 	{
 		return listaClientes;
 	}
-	public void setListaClientes(LinkedList<Cliente> listaClientes)
+	public void setListaClientes(List<Cliente> listaClientes)
 	{
 		this.listaClientes = listaClientes;
 	}
@@ -88,29 +91,87 @@ public class Seguradora
 	
 	public boolean removerCliente(String cliente)
 	{
-		
-	}
-	
-	public LinkedList<Cliente> listarClientes(String tipoCliente)
-	{
 		for(int i=0; i<listaClientes.size(); i++)
 		{
-			
+			if(listaClientes.get(i).getNome()==cliente)
+			{
+				listaClientes.remove(i);
+				for(int j=0; j<listaSinistros.size(); j++)
+				{
+					if(listaSinistros.get(j).getCliente().getNome()==cliente)
+					{
+						listaSinistros.remove(j);
+					}
+				}
+				return true;
+			}
 		}
+		return false;
 	}
 	
-	public boolean gerarSinistro()
+	// Selecao de opcao 1 (fisica) e 2 (juridica) implementado na main
+	public List<Cliente> listarClientes(String tipoCliente)
+	{
+		if(listaClientes.size()==0)
+		{
+			return listaClientes;
+		}
+		
+		List<Cliente> listaTipo = new LinkedList<Cliente>();
+		
+		if(tipoCliente=="1")
+		{
+			for(int i=0; i<listaClientes.size(); i++)
+			{
+				if(listaClientes.get(i).getClass()== ClientePF.class)
+				{
+					listaTipo.add(listaClientes.get(i));
+				}
+			}
+			return listaTipo;	
+		}
+		
+		for(int i=0; i<listaClientes.size();i++)
+		{
+			if(listaClientes.get(i).getClass()== ClientePJ.class)
+			{
+				listaTipo.add(listaClientes.get(i));
+			}
+		}
+		return listaTipo;
+	}
+	
+	public boolean gerarSinistro(String data, String endereco, Veiculo veiculo, Cliente cliente)
 	{
 		if(listaClientes.size()==0)
 		{
 			return false;
 		}
-		Sinistro sinistro = new Sinistro()
+		if(listaClientes.contains(cliente))
+		{
+			if(listaClientes.get(listaClientes.indexOf(cliente)).getListaVeiculos().contains(veiculo))
+			{
+				Sinistro sinistro = new Sinistro(data, endereco, veiculo, cliente);
+				return listaSinistros.add(sinistro);
+			}
+		}
+		return false;
 	}
 	
-	// Devolve a string no formato para impressao
-	public String toString()
+	public boolean vizualizarSinistro(String cliente)
 	{
-		return "Nome: " + nome + "\nEndereco: " + endereco + "\nEmail: " + email + "\nTelefone: " + telefone;
+		for(int i=0; i<listaSinistros.size(); i++)
+		{
+			if(listaSinistros.get(i).getCliente().getNome()==cliente)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public List<Sinistro> listarSinistros()
+	{
+		return listaSinistros;
 	}
 }

@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 
 public class Cliente
@@ -9,11 +9,11 @@ public class Cliente
 	private String educacao;
 	private String genero;
 	private String classeEconomica;
-	private ArrayList<Veiculo> listaVeiculos;
+	private List<Veiculo> listaVeiculos;
 	
 	// Constructor
 	public Cliente(String nome, String endereco, Date dataLicensa, String educacao,
-			String genero, String classeEconomica, ArrayList<Veiculo> listaVeiculo)
+			String genero, String classeEconomica, List<Veiculo> listaVeiculo)
 	{
 		this.nome = nome;
 		this.endereco = endereco;
@@ -81,11 +81,11 @@ public class Cliente
 		this.classeEconomica = classeEconomica;
 	}
 
-	public ArrayList<Veiculo> getListaVeiculos()
+	public List<Veiculo> getListaVeiculos()
 	{
 		return listaVeiculos;
 	}
-	public void setListaVeiculos(ArrayList<Veiculo> listaVeiculos)
+	public void setListaVeiculos(List<Veiculo> listaVeiculos)
 	{
 		this.listaVeiculos = listaVeiculos;
 	}
