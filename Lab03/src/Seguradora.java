@@ -1,11 +1,13 @@
+import java.util.LinkedList;
+
 public class Seguradora
 {
 	private String nome;
 	private String telefone;
 	private String email;
 	private String endereco;
-	private List<Sinistro> listaSinistros;
-	private List<Cliente> listaClientes;
+	private LinkedList<Sinistro> listaSinistros;
+	private LinkedList<Cliente> listaClientes;
 	
 	// Constructor
 	public Seguradora(String nome, String telefone, String email, String endereco)
@@ -55,6 +57,55 @@ public class Seguradora
 	public void setEndereco(String endereco)
 	{
 		this.endereco = endereco;
+	}
+	
+	public LinkedList<Sinistro> getListaSinistros()
+	{
+		return listaSinistros;
+	}
+	public void setListaSinistros(LinkedList<Sinistro> listaSinistros)
+	{
+		this.listaSinistros = listaSinistros;
+	}
+
+	public LinkedList<Cliente> getListaClientes()
+	{
+		return listaClientes;
+	}
+	public void setListaClientes(LinkedList<Cliente> listaClientes)
+	{
+		this.listaClientes = listaClientes;
+	}
+
+	public boolean cadastrarCliente(Cliente cliente)
+	{
+		if(listaClientes.contains(cliente))
+		{
+			return false;
+		}
+		return listaClientes.add(cliente);
+	}
+	
+	public boolean removerCliente(String cliente)
+	{
+		
+	}
+	
+	public LinkedList<Cliente> listarClientes(String tipoCliente)
+	{
+		for(int i=0; i<listaClientes.size(); i++)
+		{
+			
+		}
+	}
+	
+	public boolean gerarSinistro()
+	{
+		if(listaClientes.size()==0)
+		{
+			return false;
+		}
+		Sinistro sinistro = new Sinistro()
 	}
 	
 	// Devolve a string no formato para impressao

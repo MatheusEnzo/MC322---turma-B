@@ -1,12 +1,12 @@
 public class Sinistro
 {
-	private int id;
+	private final int id;
 	private String data;
 	private String endereco;
 	private Veiculo veiculo;
 	private Cliente cliente;
 	
-	private static int contador = 0;
+	private static int contador = 1;
 	
 	// Constructor
 	public Sinistro(String data, String endereco, Veiculo veiculo, Cliente cliente)
@@ -28,11 +28,6 @@ public class Sinistro
 	public int getId()
 	{
 		return id;
-	}
-
-	public void setId(int id)
-	{
-		this.id = id;
 	}
 
 	public String getData()

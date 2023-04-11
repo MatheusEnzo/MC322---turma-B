@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Date;
+
 public class Cliente
 {
 	private String nome;
@@ -6,11 +9,11 @@ public class Cliente
 	private String educacao;
 	private String genero;
 	private String classeEconomica;
-	private List<Veiculo> listaVeiculos;
+	private ArrayList<Veiculo> listaVeiculos;
 	
 	// Constructor
 	public Cliente(String nome, String endereco, Date dataLicensa, String educacao,
-			String genero, String classeEconomica, List<Veiculo> listaVeiculo)
+			String genero, String classeEconomica, ArrayList<Veiculo> listaVeiculo)
 	{
 		this.nome = nome;
 		this.endereco = endereco;
@@ -41,10 +44,56 @@ public class Cliente
 	{
 		this.endereco = endereco;
 	}
-	
+
+	public Date getDataLicensa()
+	{
+		return dataLicensa;
+	}
+	public void setDataLicensa(Date dataLicensa)
+	{
+		this.dataLicensa = dataLicensa;
+	}
+
+	public String getEducacao()
+	{
+		return educacao;
+	}
+	public void setEducacao(String educacao)
+	{
+		this.educacao = educacao;
+	}
+
+	public String getGenero()
+	{
+		return genero;
+	}
+	public void setGenero(String genero)
+	{
+		this.genero = genero;
+	}
+
+	public String getClasseEconomica()
+	{
+		return classeEconomica;
+	}
+	public void setClasseEconomica(String classeEconomica)
+	{
+		this.classeEconomica = classeEconomica;
+	}
+
+	public ArrayList<Veiculo> getListaVeiculos()
+	{
+		return listaVeiculos;
+	}
+	public void setListaVeiculos(ArrayList<Veiculo> listaVeiculos)
+	{
+		this.listaVeiculos = listaVeiculos;
+	}
+
 	// Devolve a string no formato para impressao
 	public String toString()
 	{
-		return "Nome: " + nome + "\nCPF: " + "\nEndereco: " + endereco;
+		return "Nome: " + nome + "\nEndereço: " + endereco + "\nData de Licensa: " + dataLicensa + "\nEducação: " + educacao +
+				"\nGênero: " + genero + "\nClasse Econômica: " + classeEconomica + "\nVeículos: " + listaVeiculos;
 	}
 }

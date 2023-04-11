@@ -1,11 +1,14 @@
+import java.util.ArrayList;
+import java.util.Date;
+
 public class ClientePF extends Cliente
 {
-	private String cpf;
+	private final String cpf;
 	private Date dataNascimento;
 
 	public ClientePF (String nome, String endereco, Date dataLicenca,
 	String educacao, String genero, String classeEconomica,
-	List <Veiculo> listaVeiculos, String cpf, Date dataNascimento)
+	ArrayList <Veiculo> listaVeiculos, String cpf, Date dataNascimento)
 	{
 		// chama o construtor da superclasse
 		super (nome, endereco, dataLicenca, educacao, genero, classeEconomica, listaVeiculos);
@@ -20,10 +23,6 @@ public class ClientePF extends Cliente
 	public String getCpf()
 	{
 		return cpf;
-	}
-	public void setCpf(String cpf)
-	{
-		this.cpf = cpf;
 	}
 
 	public Date getDataNascimento()
@@ -45,20 +44,10 @@ public class ClientePF extends Cliente
 		}
 		
 		// Verifica se todos os digitos sao iguais 
-		char c = cpf.charAt(0);
-		boolean diferente = false;
-	    for(int i=1; i<11; i++)
-	    {
-	        if(cpf.charAt(i)!=c)
-	        {
-	            diferente = true;
-	            break;
-	        }
-	    }
-		if(!diferente)
+		if (cpf.matches("(\\d)\\1{10}"))
 		{
-			return false;
-		}
+            return false;
+        }
 		
 		// Calcula o primeiro dígito verificador
 	    int soma = 0;
@@ -92,8 +81,9 @@ public class ClientePF extends Cliente
 	
 
 	@Override
-	public String toString ()
+	public String toString()
 	{
-		// ...
+		return super.toString() + "\nCPF: " + cpf + "\nData de Nascimento: " + dataNascimento;
+		
 	}
 }
