@@ -29,12 +29,35 @@ public class Main
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
 		Date nascimento = sdf.parse("20/03/2002");
-		Date fundacao = sdf.parse("20/03/2016");
+		Date fundacao = sdf.parse("21/05/2016");
 		
 		
-		Cliente cliente_fisico = new ClientePF("Joao", "Rua 1", new Date(), "Medio", "Masculino", "Media", veiculos_clienteFisico , "355.373.390-05", nascimento);
+		ClientePF cliente_fisico = new ClientePF("Joao", "Rua 1", new Date(), "Medio", "Masculino", "Media", veiculos_clienteFisico , "355.373.390-05", nascimento);
+		if(cliente_fisico.validarCPF(cliente_fisico.getCpf()))
+		{
+			seguradora.cadastrarCliente(cliente_fisico);
+		}
+		ClientePF cliente_fisico_invalido = new ClientePF("Jose", "Rua 1", new Date(), "Medio", "Masculino", "Media", veiculos_clienteFisico , "423.123.421-12", nascimento);
+		if(cliente_fisico_invalido.validarCPF(cliente_fisico_invalido.getCpf()))
+		{
+			seguradora.cadastrarCliente(cliente_fisico_invalido);
+		}
 		
-		Cliente cliente_juridico = new ClientePF("Inc", "Rua 1", new Date(), "Fundamental", "Masculino", "Alta", veiculos_clienteFisico , "22.945.190/0001-52", fundacao);
+		ClientePJ cliente_juridico = new ClientePJ("Inc", "Rua 1", new Date(), "Fundamental", "Masculino", "Alta", veiculos_clienteJuridico , "22.945.190/0001-52", fundacao);
+		if(cliente_juridico.validar(cliente_juridico.getCnpj()))
+		{
+			seguradora.cadastrarCliente(cliente_juridico);
+		}
+		ClientePJ cliente_juridico_invalido = new ClientePJ("Inc2", "Rua 1", new Date(), "Fundamental", "Masculino", "Alta", veiculos_clienteJuridico , "22223333111144", fundacao);
+		if(cliente_juridico_invalido.validar(cliente_juridico_invalido.getCnpj()))
+		{
+			seguradora.cadastrarCliente(cliente_juridico_invalido);
+		}
+		
+		System.out.println(seguradora.listarClientes("1"));
+		
+		System.out.println(seguradora.listarClientes("2"));
+		
 	}
 
 }

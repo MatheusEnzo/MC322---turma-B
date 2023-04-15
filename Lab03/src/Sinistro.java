@@ -67,7 +67,7 @@ public class Sinistro
 		this.cliente = cliente;
 	}
 	
-	// Devolve a string no formato para impressao
+	// Devolve a string com todos atributos no formato para impressao
 	public String toString()
 	{
 		return "ID: " + id + "\nData: " + data + "\nEndereco: " + endereco + "\nVeículo: " + veiculo + "\nCliente: " + cliente;

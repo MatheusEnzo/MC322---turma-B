@@ -90,7 +90,7 @@ public class Cliente
 		this.listaVeiculos = listaVeiculos;
 	}
 
-	// Devolve a string no formato para impressao
+	// Devolve a string com todos atributos no formato para impressao
 	public String toString()
 	{
 		return "Nome: " + nome + "\nEndereço: " + endereco + "\nData de Licensa: " + dataLicensa + "\nEducação: " + educacao +

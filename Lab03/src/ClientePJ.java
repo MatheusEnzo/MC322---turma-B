@@ -3,6 +3,7 @@ import java.util.Date;
 
 public class ClientePJ extends Cliente
 {
+	// Atributos especificos para cliente juridico
 	private final String cnpj;
 	private Date dataFundacao;
 	
@@ -10,12 +11,14 @@ public class ClientePJ extends Cliente
 	String educacao, String genero, String classeEconomica,
 	List <Veiculo> listaVeiculos, String cnpj, Date dataFundacao)
 	{
+		// Chama o construtor da superclasse
 		super (nome, endereco, dataLicensa, educacao, genero, classeEconomica, listaVeiculos);
 		
 		this.dataFundacao = dataFundacao;
 		this.cnpj = cnpj.replaceAll("[^0-9]", "");
 	}
 
+	//Getters e setters
 	public String getCnpj()
 	{
 		return cnpj;
@@ -30,6 +33,7 @@ public class ClientePJ extends Cliente
 		this.dataFundacao = dataFundacao;
 	}
 	
+	// Metodo para validar CNPJ, retornando false se for invalido e true se for valido
 	public boolean validar(String cnpj)
 	{
 	    // Verifica se a string possui 14 caracteres
@@ -79,6 +83,7 @@ public class ClientePJ extends Cliente
 	}
 	
 	@Override
+	// Devolve a string com todos atributos no formato para impressao
 	public String toString()
 	{
 		return super.toString() + "\nCNPJ: " + cnpj + "\nData de Fundação: " + dataFundacao;	

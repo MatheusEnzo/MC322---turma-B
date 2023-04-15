@@ -3,6 +3,7 @@ import java.util.Date;
 
 public class ClientePF extends Cliente
 {
+	// Atributos especificos para cliente fisico
 	private final String cpf;
 	private Date dataNascimento;
 
@@ -10,16 +11,14 @@ public class ClientePF extends Cliente
 	String educacao, String genero, String classeEconomica,
 	List <Veiculo> listaVeiculos, String cpf, Date dataNascimento)
 	{
-		// chama o construtor da superclasse
+		// Chama o construtor da superclasse
 		super (nome, endereco, dataLicenca, educacao, genero, classeEconomica, listaVeiculos);
 		
 		this.dataNascimento = dataNascimento;
 		this.cpf = cpf.replaceAll("[^0-9]", "");
 	}
 
-	// TO DO:
-	// ...
-	
+	// Getters e setters
 	public String getCpf()
 	{
 		return cpf;
@@ -34,7 +33,7 @@ public class ClientePF extends Cliente
 		this.dataNascimento = dataNascimento;
 	}
 	
-	// Metodo para validar CPF, retornando falso se for invalido
+	// Metodo para validar CPF, retornando falso se for invalido e true se for valido
 	public boolean validarCPF(String cpf)
 	{
 		// Verifica se o cpf possui 11 digitos
@@ -81,6 +80,7 @@ public class ClientePF extends Cliente
 	
 
 	@Override
+	// Devolve a string com todos atributos no formato para impressao
 	public String toString()
 	{
 		return super.toString() + "\nCPF: " + cpf + "\nData de Nascimento: " + dataNascimento;

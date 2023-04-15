@@ -54,7 +54,7 @@ public class Veiculo
 		this.anoFabricacao = anoFabricacao;
 	}
 
-	// Devolve a string no formato para impressao
+	// Devolve a string com todos atributos no formato para impressao
 	public String toString()
 	{
 		return "Marca: " + marca + "\nModelo: " + modelo + "\nPlaca: " + placa + "\nAno de Fabricação: " + anoFabricacao;
