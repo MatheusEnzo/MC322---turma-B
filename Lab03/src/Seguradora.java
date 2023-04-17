@@ -79,6 +79,11 @@ public class Seguradora
 	{
 		this.listaClientes = listaClientes;
 	}
+	
+	public String toString()
+	{
+		return "Nome: "+ nome + "\nTelefone: " + telefone + "\nEmail: " + email + "\nEndereço: " + endereco;
+	}
 
 	public boolean cadastrarCliente(Cliente cliente)
 	{

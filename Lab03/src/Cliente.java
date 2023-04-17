@@ -93,7 +93,12 @@ public class Cliente
 	// Devolve a string com todos atributos no formato para impressao
 	public String toString()
 	{
-		return "Nome: " + nome + "\nEndereço: " + endereco + "\nData de Licensa: " + dataLicensa + "\nEducação: " + educacao +
-				"\nGênero: " + genero + "\nClasse Econômica: " + classeEconomica + "\nVeículos: " + listaVeiculos;
+		String string = "Nome: " + nome + "\nEndereço: " + endereco + "\nData de Licensa: " + dataLicensa + "\nEducação: " + educacao +
+				"\nGênero: " + genero + "\nClasse Econômica: " + classeEconomica + "\nVeículos:";
+		for(int i=0;i<listaVeiculos.size();i++)
+		{
+			string = string + " [" + listaVeiculos.get(i).toString() + "]";
+		}
+		return string;
 	}
 }
