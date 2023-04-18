@@ -70,6 +70,6 @@ public class Sinistro
 	// Devolve a string com todos atributos no formato para impressao
 	public String toString()
 	{
-		return "ID: " + id + "\nData: " + data + "\nEndereco: " + endereco + "\nVeículo: " + veiculo + "\nCliente: " + cliente;
+		return "ID: " + id + ", Data: " + data + ", Endereco: " + endereco + ", Veículo: " + veiculo + ", Cliente: " + cliente.getNome();
 	}
 }

@@ -98,14 +98,15 @@ public class Seguradora
 	{
 		for(int i=0; i<listaClientes.size(); i++)
 		{
-			if(listaClientes.get(i).getNome()==cliente)
+			if(listaClientes.get(i).getNome().equals(cliente))
 			{
 				listaClientes.remove(i);
 				for(int j=0; j<listaSinistros.size(); j++)
 				{
-					if(listaSinistros.get(j).getCliente().getNome()==cliente)
+					if(listaSinistros.get(j).getCliente().getNome().equals(cliente))
 					{
 						listaSinistros.remove(j);
+						j=j-1;
 					}
 				}
 				return true;
@@ -167,7 +168,7 @@ public class Seguradora
 	{
 		for(int i=0; i<listaSinistros.size(); i++)
 		{
-			if(listaSinistros.get(i).getCliente().getNome()==cliente)
+			if(listaSinistros.get(i).getCliente().getNome().equals(cliente))
 			{
 				return true;
 			}
