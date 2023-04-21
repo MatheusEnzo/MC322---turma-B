@@ -9,8 +9,10 @@ public class Main
 {
 	public static void main(String[] args) throws ParseException
 	{
+		// Instanciação da seguradora
 		Seguradora seguradora = new Seguradora("Seguradora1","(19)1234-5478","abc@email.com","Rua A");
 		
+		// Instaciação de veículos
 		Veiculo veiculo1 = new Veiculo("1", "Marca A", "Modelo A", 2011);	
 		Veiculo veiculo2 = new Veiculo("2", "Marca B", "Modelo B", 2012);
 		Veiculo veiculo3 = new Veiculo("3", "Marca C", "Modelo C", 2013);
@@ -24,6 +26,7 @@ public class Main
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
+		// Instaciação de clientes, caso o CPF ou CNPJ seja inválido, o cliente não é cadastrado na seguradora
 		ClientePF dummy = new ClientePF("Jose", "Rua 1", new Date(), "Medio", "Masculino", "Media", new ArrayList<Veiculo>() , "423.123.421-12", sdf.parse("20/03/2002"));
 		
 		ClientePF cliente_fisico_invalido = new ClientePF("Jose", "Rua 1", new Date(), "Medio", "Masculino", "Media", new ArrayList<Veiculo>() , "423.123.421-12", sdf.parse("20/03/2002"));
@@ -63,6 +66,7 @@ public class Main
 			seguradora.cadastrarCliente(cliente_juridico2);
 		}
 		
+		// Adição de veículos para os clientes
 		cliente_fisico.getListaVeiculos().add(veiculo1);
 		cliente_fisico.getListaVeiculos().add(veiculo2);
 		cliente_fisico2.getListaVeiculos().add(veiculo3);
@@ -74,6 +78,7 @@ public class Main
 		cliente_juridico2.getListaVeiculos().add(veiculo9);
 		cliente_juridico2.getListaVeiculos().add(veiculo10);
 		
+		// Geração de sinistros, testando casos inválidos de adição
 		seguradora.gerarSinistro("Dia 10", "Avenida A", veiculo1, dummy);
 		seguradora.gerarSinistro("Dia 12", "Avenida B", veiculo1, cliente_fisico);
 		seguradora.gerarSinistro("Dia 12", "Avenida B", veiculo3, cliente_fisico);
@@ -88,18 +93,21 @@ public class Main
 		
 		while(true)
 		{
+			// Menu de entrada
 			System.out.println("Opções de operações:\n1.Visualizar dados da seguradora\n2.Listar clientes da seguradora"
 					+ "\n3.Consultar a existência de sinistros de um cliente\n4.Listar todos sinistros\n5.Descadastrar cliente\n6.Terminar o programa");
 			System.out.print("Número da opção desejada: ");
 			int leitura = entrada.nextInt();
 			entrada.nextLine();
 			
+			// Operações dependendo da leitura da entrada (caso aconteça entraada de caracteres não numéricos ocorre um erro de execução)
 			if(leitura==1)
 			{
 				System.out.println(seguradora.toString() + "\n");
 			}
 			else if(leitura==2)
 			{
+				// Seleção do tipo de cliente
 				System.out.println("Tipos de clientes:\n1.Pessoa Física\n2.Pessoa Jurídica");
 				System.out.print("Número da opção desejada: ");
 				int tipo = entrada.nextInt();
