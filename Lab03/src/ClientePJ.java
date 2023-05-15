@@ -18,7 +18,7 @@ public class ClientePJ extends Cliente
 		this.cnpj = cnpj.replaceAll("[^0-9]", "");
 	}
 
-	//Getters e setters
+	// Getters e setters
 	public String getCnpj()
 	{
 		return cnpj;
