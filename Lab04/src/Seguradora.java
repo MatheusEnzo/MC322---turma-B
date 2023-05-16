@@ -104,20 +104,20 @@ public class Seguradora
 		return true;
 	}
 	
-	// Metodo para remover cliente e todos sinistros associados a ele, utilizando o nome como parâmetro para busca do cliente na seguradora
-	public boolean removerCliente(String cliente)
+	// Metodo para remover cliente e todos sinistros associados a ele, utilizando o CPF/CNPJ como parâmetro para busca
+	public boolean removerCliente(String identificacao)
 	{
 		// Busca do cliente
 		for(int i=0; i<listaClientes.size(); i++)
 		{
-			if(listaClientes.get(i).getNome().equals(cliente))
+			if(listaClientes.get(i).getIdentificacao().equals(identificacao))
 			{
 				listaClientes.remove(i);
 				
 				// Busca de todos os sinistros associados ao cliente
 				for(int j=0; j<listaSinistros.size(); j++)
 				{
-					if(listaSinistros.get(j).getCliente().getNome().equals(cliente))
+					if(listaSinistros.get(j).getCliente().getIdentificacao().equals(identificacao))
 					{
 						listaSinistros.remove(j);
 						j=j-1;
@@ -194,6 +194,21 @@ public class Seguradora
 		return false;
 	}
 	
+	public boolean removerSinistro(int id)
+	{
+		for(int i=0; i<listaSinistros.size();i++)
+		{
+			if(listaSinistros.get(i).getId() == id)
+			{
+				Cliente aux = listaSinistros.get(i).getCliente();
+				listaSinistros.remove(i);
+				aux.setValorSeguro(calcularPrecoSeguroCliente(aux));
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	// Metodo para verificar a existência, ou não, de sinistros de um certo cliente, utilizando o CPF ou CNPJ como parâmetro de busca
 	public boolean visualizarSinistro(String id)
 	{
@@ -225,12 +240,76 @@ public class Seguradora
 	
 	public boolean cadastrarVeiculo(Cliente cliente, Veiculo veiculo)
 	{
-		if(listaClientes.contains(cliente))
+		for(Cliente i: listaClientes)
 		{
-			cliente.getListaVeiculos().add(veiculo);
-			return true;
+			for(Veiculo j : i.getListaVeiculos())
+			{
+				if(j.getPlaca() == veiculo.getPlaca())
+				{
+					return false;
+				}
+			}
+		}
+		cliente.getListaVeiculos().add(veiculo);
+		return true;
+	}
+	
+	public boolean removerVeiculo(String placa)
+	{
+		for(int i=0; i<listaClientes.size(); i++)
+		{
+			for(int j=0; j<listaClientes.get(i).getListaVeiculos().size(); j++)
+			{
+				if(listaClientes.get(i).getListaVeiculos().get(j).getPlaca() == placa)
+				{
+					for(int k=0; k<listaSinistros.size(); k++)
+					{
+						if(listaSinistros.get(k).getVeiculo().getPlaca() == placa)
+						{
+							listaSinistros.remove(k);
+							k = k - 1;
+						}
+					}
+					listaClientes.get(i).getListaVeiculos().remove(j);
+					listaClientes.get(i).setValorSeguro(calcularPrecoSeguroCliente(listaClientes.get(i)));
+					return true;
+				}
+			}
 		}
 		return false;
+	}
+	
+	public void transferencia(String cliente_emissor, String cliente_receptor)
+	{
+			int index_emissor = 0, index_receptor = 0;
+			for(int i=0; i<listaClientes.size(); i++)
+			{
+				if(listaClientes.get(i).getIdentificacao() == cliente_emissor)
+				{
+					index_emissor = i;
+				}
+				if(listaClientes.get(i).getIdentificacao() == cliente_receptor)
+				{
+					index_receptor = i;
+				}
+			}
+			
+			List<Veiculo> aux = listaClientes.get(index_emissor).getListaVeiculos();
+			for(int i=0; i<aux.size(); i++)
+			{
+				listaClientes.get(index_receptor).getListaVeiculos().add(aux.get(i));
+				for(int j=0; j<listaSinistros.size(); j++)
+				{
+					if(listaSinistros.get(j).getVeiculo() == aux.get(i))
+					{
+						listaSinistros.get(j).setCliente(listaClientes.get(index_receptor));
+					}
+				}
+			}
+			
+			listaClientes.get(index_receptor).setValorSeguro(calcularPrecoSeguroCliente(listaClientes.get(index_receptor)));
+			listaClientes.remove(index_emissor);
+			
 	}
 	
 	public double calcularPrecoSeguroCliente(Cliente cliente)

@@ -58,6 +58,8 @@ public class Main {
 	
 	//executar opções do menu externo
 	private static void executarOpcaoMenuExterno(MenuOperacoes op) throws ParseException {
+		List<Seguradora> seguradoras = Seguradora.getListaSeguradora();
+		Scanner entrada = new Scanner(System.in);
 		switch(op) {
 			case CADASTROS:
 			case LISTAR:
@@ -65,8 +67,6 @@ public class Main {
 				executarSubmenu(op);
 				break;
 			case GERAR_SINISTRO:
-				List<Seguradora> seguradoras = Seguradora.getListaSeguradora();
-				Scanner entrada = new Scanner(System.in);
 				System.out.println("Lista de seguradoras:");
 				for(int i=0; i<seguradoras.size(); i++)
 				{
@@ -98,10 +98,42 @@ public class Main {
 				
 				break;
 			case TRANSFERIR_SEGURO:
-				System.out.println("Executar metodo tranferir seguro");
+				Scanner leitura = new Scanner(System.in);
+				System.out.print("Digite o CPF ou CNPJ do cliente que deseja transferir o seguro: ");
+				String id_emissor = leitura.nextLine();
+				System.out.print("Digite o CPF ou CNPJ do cliente que irá receber o seguro: ");
+				String id_receptor = leitura.nextLine();
+				int existe_emissor = 0, existe_receptor = 0;
+				for(Seguradora i: seguradoras)
+				{
+					existe_emissor = 0;
+					existe_receptor = 0;
+					for(Cliente j : i.getListaClientes())
+					{
+						if(j.getIdentificacao() == id_emissor)
+						{
+							existe_emissor = 1;
+						}
+						if(j.getIdentificacao() == id_receptor)
+						{
+							existe_receptor = 1;
+						}
+					}
+					if(existe_emissor==1 && existe_receptor==1)
+					{
+						i.transferencia(id_emissor, id_receptor);
+						System.out.println("Transferência realizada");
+						break;
+					}
+				}
+				if(existe_emissor==0 || existe_receptor==0)
+				{
+					System.out.println("Os clientes não estão cadastrados na mesma seguradora");
+				}
+				
 				break;
 			case CALCULAR_RECEITA:
-				for(Seguradora i : Seguradora.getListaSeguradora())
+				for(Seguradora i : seguradoras)
 				{
 					System.out.println("Nome da Seguradora: " + i.getNome() + " - Receita: "  + i.calcularReceita());
 				}
@@ -310,7 +342,7 @@ public class Main {
 			
 			System.out.print("Digite o CPF ou CNPJ do cliente associado ao carro: ");
 			String id = entrada.nextLine();
-			id.replaceAll("[^0-9]", "");
+			id = id.replaceAll("[^0-9]", "");
 			int test=0;
 			for(Cliente i : seguradoras.get(qual).getListaClientes())
 			{
@@ -334,14 +366,20 @@ public class Main {
 					int ano = entrada.nextInt();
 					entrada.nextLine();
 					Veiculo v = new Veiculo(placa, marca, modelo, ano);
-					i.getListaVeiculos().add(v);
-					System.out.println("Veículo cadastrado com sucesso");
+					if(i.getListaVeiculos().add(v))
+					{
+						System.out.println("Veículo cadastrado com sucesso");
+					}
+					else
+					{
+						System.out.println("Placa já cadastrada");
+					}
 					break;
 				}
 			}
 			if(test==0)
 			{
-				System.out.print("Cliente não cadastrado na seguradora");
+				System.out.print("Cliente não encontrado na seguradora");
 			}
 			break;
 		case CADASTRAR_SEGURADORA:
@@ -480,13 +518,68 @@ public class Main {
 			}
 			break;
 		case EXCLUIR_CLIENTE:
-			System.out.println("Chamar metodo excluir cliente");
+			System.out.print("Digite o CPF ou CNPJ do cliente que deseja remover: ");
+			String identificacao = entrada.nextLine();
+			identificacao = identificacao.replaceAll("[^0-9]", "");
+			int flag = 0;
+			for(Seguradora i : seguradoras)
+			{
+				if(i.removerCliente(identificacao))
+				{
+					flag = 1;
+				}
+			}
+			if(flag==1)
+			{
+				System.out.println("Cliente removido com sucesso de todas as seguradoras");
+			}
+			else
+			{
+				System.out.println("Cliente não encontrado em nenhuma seguradora");
+			}
 			break;
 		case EXCLUIR_VEICULO:
-			System.out.println("Chamar metodo excluir veiculo");
+			System.out.print("Digite a placa do carro que deseja remover: ");
+			String placa = entrada.nextLine();
+			placa = placa.replaceAll("\\s+", "").replaceAll("-", "");
+			int flag2=0;
+			for(Seguradora i : seguradoras)
+			{
+				if(i.removerVeiculo(placa))
+				{
+					flag2 = 1;
+					break;
+				}
+			}
+			if(flag2==1)
+			{
+				System.out.println("Veículo removido com sucesso");
+			}
+			else
+			{
+				System.out.println("Veículo não encontrado");
+			}
 			break;
 		case EXCLUIR_SINISTRO:
-			System.out.println("Chamar metodo excluir sinistro");
+			System.out.print("Digite o ID do sinistro que deseja remover: ");
+			int sinistro = entrada.nextInt();
+			int flag3 = 0;
+			for(Seguradora i: seguradoras)
+			{
+				if(i.removerSinistro(sinistro))
+				{
+					flag3 = 1;
+					break;
+				}
+			}
+			if(flag3==1)
+			{
+				System.out.println("Sinistro removido com sucesso");
+			}
+			else
+			{
+				System.out.println("Sinistro não encontrado");
+			}
 			break;
 		//case VOLTAR:
 		//	break;
