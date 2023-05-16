@@ -93,12 +93,14 @@ public class Seguradora
 	// Metodo para cadastrar o cliente, retornando false se o cliente já está cadastrado, ou true se conseguir cadastrar com sucesso
 	public boolean cadastrarCliente(Cliente cliente)
 	{
-		if(listaClientes.contains(cliente))
+		for(Cliente i: listaClientes)
 		{
-			return false;
+			if(cliente.getIdentificacao().equals(i.getIdentificacao()))
+			{
+				return false;
+			}
 		}
 		listaClientes.add(cliente);
-		cliente.setValorSeguro(calcularPrecoSeguroCliente(cliente));
 		return true;
 	}
 	
@@ -165,7 +167,7 @@ public class Seguradora
 	// Metodo para gerar sinistro, retornando true com sucesso, ou false caso contrário
 	public boolean gerarSinistro(String data, String endereco, String placa, String identificacao)
 	{
-		identificacao.replaceAll("[^0-9]", "");
+		identificacao = identificacao.replaceAll("[^0-9]", "");
 		if(listaClientes.size()==0)
 		{
 			return false;
@@ -174,12 +176,12 @@ public class Seguradora
 		// Checagem, atraves do CPF ou CNPJ, para ver se o cliente está cadastrado na seguradora
 		for(int i=0; i<listaClientes.size();i++)
 		{
-			if(listaClientes.get(i).getIdentificacao() == identificacao)
+			if(listaClientes.get(i).getIdentificacao().equals(identificacao))
 			{
 				// Checagem, atraves da placa, para ver se o veículo passado como parâmetro pertence ao cliente
 				for(Veiculo p : listaClientes.get(i).getListaVeiculos())
 				{
-					if(p.getPlaca() == placa)
+					if(p.getPlaca().equals(placa))
 					{
 						Sinistro sinistro = new Sinistro(data, endereco, p, listaClientes.get(i));	
 						listaSinistros.add(sinistro);
@@ -193,11 +195,12 @@ public class Seguradora
 	}
 	
 	// Metodo para verificar a existência, ou não, de sinistros de um certo cliente, utilizando o CPF ou CNPJ como parâmetro de busca
-	public boolean vizualizarSinistro(String id)
+	public boolean visualizarSinistro(String id)
 	{
+		id.replaceAll("[^0-9]", "");
 		for(Cliente i : listaClientes)
 		{
-			if(i.getIdentificacao() == id)
+			if(i.getIdentificacao().equals(id))
 			{
 				return true;
 			}
@@ -206,14 +209,33 @@ public class Seguradora
 	}
 	
 	// Metodo que retorna uma lista com todos os sinistros existentes
-	public List<Sinistro> listarSinistros()
+	public String listarSinistros()
 	{
-		return listaSinistros;
+		if(listaSinistros.size()==0)
+		{
+			return "Não há sinistros cadastrados";
+		}
+		String sinistros = "";
+		for(Sinistro i : listaSinistros)
+		{
+			sinistros += "[" + i + "]\n";
+		}
+		return sinistros;
+	}
+	
+	public boolean cadastrarVeiculo(Cliente cliente, Veiculo veiculo)
+	{
+		if(listaClientes.contains(cliente))
+		{
+			cliente.getListaVeiculos().add(veiculo);
+			return true;
+		}
+		return false;
 	}
 	
 	public double calcularPrecoSeguroCliente(Cliente cliente)
 	{
-		int cont=0;
+		int cont=1;
 		for(int i=0; i<listaSinistros.size();i++)
 		{
 			if(listaSinistros.get(i).getCliente().equals(cliente))
@@ -221,7 +243,7 @@ public class Seguradora
 				cont++;
 			}
 		}
-		return cliente.calculaScore() * (1 + cont);
+		return cliente.calculaScore() * cont;
 
 	}
 	

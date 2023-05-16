@@ -1,5 +1,4 @@
 import java.util.Date;
-import java.util.List;
 
 public class ClientePF extends Cliente
 {
@@ -12,11 +11,11 @@ public class ClientePF extends Cliente
 	private String classeEconomica;
 	
 	// Construtor
-	public ClientePF (String nome, String endereco, List <Veiculo> listaVeiculos, String cpf,
-	String genero, Date dataLicensa, String educacao, Date dataNascimento, String classeEconomica)
+	public ClientePF (String nome, String endereco, String cpf, String genero, Date dataLicensa,
+			String educacao, Date dataNascimento, String classeEconomica)
 	{
 		// Chama o construtor da superclasse
-		super (nome, endereco, listaVeiculos);
+		super (nome, endereco);
 		
 		this.cpf = cpf.replaceAll("[^0-9]", "");
 		this.genero = genero;

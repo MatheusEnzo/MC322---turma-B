@@ -49,7 +49,7 @@ public class Validacao
 	}
 	
 	// Metodo para validar CNPJ, retornando false se for invalido e true se for valido
-		public static boolean validar(String cnpj)
+		public static boolean validarCNPJ(String cnpj)
 		{
 		    // Verifica se a string possui 14 caracteres
 		    if (cnpj.length() != 14)
@@ -144,6 +144,25 @@ public class Validacao
 			int idade = calcularIdade(dataNascimento);
 			
 			if(idade>=18 && idade<=90)
+			{
+				return true;
+			}
+			return false;
+		}
+		
+		public static boolean validarFundacao(Date dataFundacao)
+		{
+			Date dataAtual = new Date();
+			if(dataFundacao.before(dataAtual))
+			{
+				return true;
+			}
+			return false;
+		}
+		
+		public static boolean verificarPlaca(String placa)
+		{
+			if(placa.length()==7)
 			{
 				return true;
 			}

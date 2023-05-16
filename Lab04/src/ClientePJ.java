@@ -1,4 +1,3 @@
-import java.util.List;
 import java.util.Date;
 
 public class ClientePJ extends Cliente
@@ -9,11 +8,10 @@ public class ClientePJ extends Cliente
 	private int qtdeFuncionarios;
 	
 	// Construtor
-	public ClientePJ (String nome, String endereco, List <Veiculo> listaVeiculos,
-			String cnpj, Date dataFundacao, int qtdeFuncionarios)
+	public ClientePJ (String nome, String endereco, String cnpj, Date dataFundacao, int qtdeFuncionarios)
 	{
 		// Chama o construtor da superclasse
-		super (nome, endereco, listaVeiculos);
+		super (nome, endereco);
 		
 		this.cnpj = cnpj.replaceAll("[^0-9]", "");
 		this.dataFundacao = dataFundacao;
@@ -58,6 +56,6 @@ public class ClientePJ extends Cliente
 	@Override
 	public double calculaScore()
 	{
-		return super.calculaScore() * (1 + (qtdeFuncionarios)/100);
+		return super.calculaScore() * (1 + (qtdeFuncionarios)/100.0);
 	}
 }

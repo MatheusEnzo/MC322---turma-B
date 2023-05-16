@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.ArrayList;
 
 public class Cliente
 {
@@ -8,11 +9,12 @@ public class Cliente
 	private double valorSeguro;
 	
 	// Constructor
-	public Cliente(String nome, String endereco, List<Veiculo> listaVeiculo)
+	public Cliente(String nome, String endereco)
 	{
 		this.nome = nome;
 		this.endereco = endereco;
-		this.listaVeiculos = listaVeiculo;
+		this.listaVeiculos = new ArrayList<Veiculo>();
+		this.valorSeguro = 0;
 	}
 
 	// Getters e setters
@@ -50,9 +52,9 @@ public class Cliente
 		return valorSeguro;
 	}
 
-	public void setValorSeguro(double valorSeguro)
+	public void setValorSeguro(double v)
 	{
-		this.valorSeguro = valorSeguro;
+		this.valorSeguro = v;
 	}
 
 	// String no formato de impressao
