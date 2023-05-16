@@ -8,14 +8,15 @@ public class ClientePJ extends Cliente
 	private Date dataFundacao;
 	private int qtdeFuncionarios;
 	
+	// Construtor
 	public ClientePJ (String nome, String endereco, List <Veiculo> listaVeiculos,
 			String cnpj, Date dataFundacao, int qtdeFuncionarios)
 	{
 		// Chama o construtor da superclasse
 		super (nome, endereco, listaVeiculos);
 		
-		this.dataFundacao = dataFundacao;
 		this.cnpj = cnpj.replaceAll("[^0-9]", "");
+		this.dataFundacao = dataFundacao;
 		this.qtdeFuncionarios = qtdeFuncionarios;
 	}
 
@@ -39,20 +40,24 @@ public class ClientePJ extends Cliente
 		this.qtdeFuncionarios = qtdeFuncionarios;
 	}
 
-	public String getCnpj()
+	public String getIdentificacao()
 	{
 		return cnpj;
 	}
 
 	@Override
-	// Devolve a string com todos atributos no formato para impressao
+	// String no formato de impressao
 	public String toString()
 	{
-		return super.toString() + "\nCNPJ: " + cnpj + "\nData de Fundação: " + dataFundacao;	
-	}//Arrumar toString
+		String string = super.toString();
+		string += "\nCNPJ: " + cnpj + "\nData de Fundação: " + dataFundacao +
+				"\nQuantidade de Funcionários: " + qtdeFuncionarios;
+		return string;
+	}
 	
+	@Override
 	public double calculaScore()
 	{
-		
-	}//Implementar funcao
+		return super.calculaScore() * (1 + (qtdeFuncionarios)/100);
+	}
 }

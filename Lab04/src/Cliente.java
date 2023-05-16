@@ -55,16 +55,26 @@ public class Cliente
 		this.valorSeguro = valorSeguro;
 	}
 
-	// Devolve a string com todos atributos no formato para impressao
+	// String no formato de impressao
 	public String toString()
 	{
 		String string = "Nome: " + nome + "\nEndereço: " + endereco + "\nVeículos:";
 		for(int i=0;i<listaVeiculos.size();i++)
 		{
-			string = string + " [" + listaVeiculos.get(i).toString() + "]";
+			string += " [" + listaVeiculos.get(i).toString() + "]";
 		}
-		string += "Valor do Seguro:" + valorSeguro;
+		string += "\nValor do Seguro:" + valorSeguro;
 		
 		return string;
+	}
+	
+	public String getIdentificacao()
+	{
+		return null;
+	}
+	
+	public double calculaScore()
+	{
+		return CalcSeguro.VALOR_BASE.getFator() * listaVeiculos.size();
 	}
 }

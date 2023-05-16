@@ -10,7 +10,8 @@ public class ClientePF extends Cliente
 	private String educacao;
 	private Date dataNascimento;
 	private String classeEconomica;
-
+	
+	// Construtor
 	public ClientePF (String nome, String endereco, List <Veiculo> listaVeiculos, String cpf,
 	String genero, Date dataLicensa, String educacao, Date dataNascimento, String classeEconomica)
 	{
@@ -71,21 +72,37 @@ public class ClientePF extends Cliente
 		this.classeEconomica = classeEconomica;
 	}
 
-	public String getCpf()
+	public String getIdentificacao()
 	{
 		return cpf;
 	}
 
 	@Override
-	// Devolve a string com todos atributos no formato para impressao
+	// String no formato de impressao
 	public String toString()
 	{
-		return super.toString() + "\nCPF: " + cpf + "\nData de Nascimento: " + dataNascimento;
+		String string = super.toString();
+		string += "\nCPF: " + cpf + "\nGênero: " + genero + "\nData de Licensa: " + dataLicensa + "\nEducação: " + educacao +
+				"\nData de Nascimento: " + dataNascimento + "\nClasse Econômica: " + classeEconomica;
+		return string;
 		
-	}//Arrumar toString
+	}
 	
+	@Override
 	public double calculaScore()
 	{
-		
-	}//Implementar funcao
+		int idade = Validacao.calcularIdade(dataNascimento);
+		if(idade<30)
+		{
+			return super.calculaScore() * CalcSeguro.FATOR_18_30.getFator();
+		}
+		else if(idade<60)
+		{
+			return super.calculaScore() * CalcSeguro.FATOR_30_60.getFator();
+		}
+		else
+		{
+			return super.calculaScore() * CalcSeguro.FATOR_60_90.getFator();
+		}
+	}
 }
