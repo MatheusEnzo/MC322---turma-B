@@ -12,9 +12,6 @@ public enum MenuOperacoes {
 	}),
 	LISTAR("Listar", new SubmenuOpcoes[] {
 			SubmenuOpcoes.LISTAR_CLIENTES,
-			SubmenuOpcoes.LISTAR_SINISTROS,
-			SubmenuOpcoes.LISTAR_VEICULOS,
-			SubmenuOpcoes.LISTAR_FROTAS,
 			SubmenuOpcoes.LISTAR_SEGUROS_CLIENTES,
 			SubmenuOpcoes.LISTAR_SINISTROS_CLIENTES,
 			SubmenuOpcoes.VOLTAR

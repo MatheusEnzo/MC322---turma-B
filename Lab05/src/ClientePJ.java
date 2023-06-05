@@ -76,7 +76,7 @@ public class ClientePJ extends Cliente
 		return listaFrota;
 	}
 
-	public String getId() {
+	public String getIdentificacao() {
 		return cnpj;
 	}
 	
@@ -85,7 +85,7 @@ public class ClientePJ extends Cliente
 	{
 		String string = super.toString();
 		string += "\nCNPJ: " + cnpj + "\nData de Fundação: " + dataFundacao +
-					"\nQuantidade de Funcionários: " + qtdeFuncionarios + "Frota: ";
+					"\nQuantidade de Funcionários: " + qtdeFuncionarios + "\nFrota: ";
 		
 		for(Frota i : listaFrota)
 		{

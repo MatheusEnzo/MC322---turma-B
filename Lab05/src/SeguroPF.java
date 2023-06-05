@@ -3,8 +3,8 @@ import java.util.Date;
 
 public class SeguroPF extends Seguro
 {
-	public Veiculo veiculo;
-	public ClientePF cliente;
+	private Veiculo veiculo;
+	private ClientePF cliente;
 	
 	SeguroPF(Seguradora seguradora, Veiculo veiculo, ClientePF cliente) throws ParseException
 	{
@@ -13,14 +13,21 @@ public class SeguroPF extends Seguro
 		this.veiculo = veiculo;
 		this.cliente = cliente;
 		
-		this.valorMensal = this.calcularValor();
+		super.setValorMensal(this.calcularValor());
 	}
 	
 	@Override
 	public boolean autorizarCondutor(Condutor condutor)
 	{
-		listaCondutores.add(condutor);
-		valorMensal = calcularValor();
+		for(Sinistro i : super.getListaSinistros())
+		{
+			if(i.getCondutor().getCpf().equals(condutor.getCpf()))
+			{
+				condutor.adicionarSinistro(i);
+			}
+		}
+		super.getListaCondutores().add(condutor);
+		super.setValorMensal(this.calcularValor());
 		return true;
 	}
 	
@@ -29,12 +36,12 @@ public class SeguroPF extends Seguro
 	{
 		cpf.replaceAll("[^0-9]", "");
 		
-		for(int i=0;i<listaCondutores.size();i++)
+		for(int i=0;i<super.getListaCondutores().size();i++)
 		{
-			if(listaCondutores.get(i).getCpf().equals(cpf))
+			if(super.getListaCondutores().get(i).getCpf().equals(cpf))
 			{
-				listaCondutores.remove(i);
-				valorMensal = calcularValor();
+				super.getListaCondutores().remove(i);
+				super.setValorMensal(this.calcularValor());
 				return true;
 			}
 		}
@@ -44,14 +51,14 @@ public class SeguroPF extends Seguro
 	@Override
 	public boolean gerarSinistro(Date data, String endereco, String cpf)
 	{
-		for(int i=0;i<listaCondutores.size();i++)
+		for(int i=0;i<super.getListaCondutores().size();i++)
 		{
-			if(listaCondutores.get(i).getCpf().equals(cpf))
+			if(super.getListaCondutores().get(i).getCpf().equals(cpf))
 			{
-				Sinistro sinistro = new Sinistro(data, endereco, listaCondutores.get(i), this);
-				listaSinistros.add(sinistro);
-				listaCondutores.get(i).adicionarSinistro(sinistro);
-				valorMensal = calcularValor();
+				Sinistro sinistro = new Sinistro(data, endereco, super.getListaCondutores().get(i), this);
+				super.getListaSinistros().add(sinistro);
+				super.getListaCondutores().get(i).adicionarSinistro(sinistro);
+				super.setValorMensal(this.calcularValor());
 				return true;
 			}
 		}
@@ -63,9 +70,9 @@ public class SeguroPF extends Seguro
 	{
 		int idade = Validacao.calcularIdade(cliente.getDataNascimento());
 		
-		double base = CalcSeguro.VALOR_BASE.getFator() * (1 + 1/(cliente.getListaVeiculos().size() +2)) * (2 + listaSinistros.size() /10);
+		double base = CalcSeguro.VALOR_BASE.getFator() * (1 + 1/(cliente.getListaVeiculos().size() +2)) * (2 + super.getListaSinistros().size() /10);
 		int quantidade = 0;
-		for(Condutor i: listaCondutores)
+		for(Condutor i: super.getListaCondutores())
 		{
 			quantidade += i.getListaSinistros().size();
 		}
@@ -88,8 +95,9 @@ public class SeguroPF extends Seguro
 	public Veiculo getVeiculo() {
 		return veiculo;
 	}
-
-	public ClientePF getCliente() {
+	
+	@Override
+	public Cliente getCliente() {
 		return cliente;
 	}
 	

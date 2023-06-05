@@ -74,7 +74,7 @@ public class ClientePF extends Cliente
 		this.listaVeiculos = listaVeiculos;
 	}
 
-	public String getId() {
+	public String getIdentificacao() {
 		return cpf;
 	}
 

@@ -39,7 +39,7 @@ public class Seguradora
 		{
 			for(int i=0; i<listaClientes.size(); i++)
 			{
-				if(listaClientes.get(i).getClass()== ClientePF.class)
+				if(listaClientes.get(i).getClass() == ClientePF.class)
 				{
 					listaTipo.add(listaClientes.get(i));
 				}
@@ -49,7 +49,7 @@ public class Seguradora
 		
 		for(int i=0; i<listaClientes.size();i++)
 		{
-			if(listaClientes.get(i).getClass()== ClientePJ.class)
+			if(listaClientes.get(i).getClass() == ClientePJ.class)
 			{
 				listaTipo.add(listaClientes.get(i));
 			}
@@ -57,18 +57,144 @@ public class Seguradora
 		return listaTipo;
 	}
 	
-	public boolean gerarSeguro(Veiculo veiculo, ClientePF cliente) throws ParseException
+	public boolean gerarSeguro(String placa, String cpf) throws ParseException
 	{
-		SeguroPF seguro = new SeguroPF(this, veiculo, cliente);
-		return listaSeguros.add(seguro);
+		for(Seguro teste : listaSeguros)
+		{
+			if(teste.getClass() == SeguroPF.class)
+			{
+				if(((SeguroPF) teste).getVeiculo().getPlaca().equals(placa))
+				{
+					return false;
+				}
+			}
+		}
+		
+		for(int i=0; i<listaClientes.size(); i++)
+		{
+			if(listaClientes.get(i).getIdentificacao().equals(cpf))
+			{
+				for(int j=0; j<((ClientePF) listaClientes.get(i)).getListaVeiculos().size(); j++)
+				{
+					if(((ClientePF) listaClientes.get(i)).getListaVeiculos().get(j).getPlaca().equals(placa))
+					{
+						SeguroPF seguro = new SeguroPF(this, ((ClientePF) listaClientes.get(i)).getListaVeiculos().get(j), (ClientePF) listaClientes.get(i));
+						return listaSeguros.add(seguro);
+					}
+				}
+			}
+		}
+		return false;
 	}
-	public boolean gerarSeguro(Frota frota, ClientePJ cliente) throws ParseException
+	public boolean gerarSeguro(int codigo, String cnpj) throws ParseException
 	{
-		SeguroPJ seguro = new SeguroPJ(this, frota, cliente);
-		return listaSeguros.add(seguro);
+		for(Seguro teste : listaSeguros)
+		{
+			if(teste.getClass() == SeguroPJ.class)
+			{
+				if(((SeguroPJ) teste).getFrota().getCode() == codigo)
+				{
+					return false;
+				}
+			}
+		}
+		
+		for(int i=0; i<listaClientes.size(); i++)
+		{
+			if(listaClientes.get(i).getIdentificacao().equals(cnpj))
+			{
+				for(int j=0; j<((ClientePJ) listaClientes.get(i)).getListaFrota().size(); j++)
+				{
+					if(((ClientePJ) listaClientes.get(i)).getListaFrota().get(j).getCode() == codigo)
+					{
+						SeguroPJ seguro = new SeguroPJ(this, ((ClientePJ) listaClientes.get(i)).getListaFrota().get(j), ((ClientePJ) listaClientes.get(i)));
+						return listaSeguros.add(seguro);
+					}
+				}
+			}
+		}
+		return false;
 	}
 	
+	public boolean cancelarSeguro(String placa)
+	{
+		for(int i=0; i<listaSeguros.size(); i++)
+		{
+			if(listaSeguros.get(i).getClass() == SeguroPF.class)
+			{
+				if(((SeguroPF) listaSeguros.get(i)).getVeiculo().getPlaca().equals(placa))
+				{
+					listaSeguros.remove(i);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	public boolean cancelarSeguro(int codigo)
+	{
+		for(int i=0; i<listaSeguros.size(); i++)
+		{
+			if(listaSeguros.get(i).getClass() == SeguroPJ.class)
+			{
+				if(((SeguroPJ) listaSeguros.get(i)).getFrota().getCode() == codigo)
+				{
+					listaSeguros.remove(i);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	
+	public boolean cadastrarCliente()
+	{
+		
+	}
+	
+	public boolean removerCliente()
+	{
+		
+	}
+	
+	public ArrayList<Seguro> getSegurosPorCliente(String identificacao)
+	{
+		ArrayList<Seguro> segurosCliente = new ArrayList<Seguro>();
+		for(Seguro i : listaSeguros)
+		{
+			if(i.getCliente().getIdentificacao().equals(identificacao))
+			{
+				segurosCliente.add(i);
+			}
+		}
+		return segurosCliente;
+	}
+	
+	public ArrayList<Sinistro> getSinistrosPorCliente(String identificacao)
+	{
+		ArrayList<Sinistro> sinistrosCliente = new ArrayList<Sinistro>();
+		for(Seguro i : listaSeguros)
+		{
+			if(i.getCliente().getIdentificacao().equals(identificacao))
+			{
+				for(Sinistro j: i.getListaSinistros())
+				{
+					sinistrosCliente.add(j);
+				}
+			}
+		}
+		return sinistrosCliente;
+	}
+	
+	public double calcularReceita()
+	{
+		double receita = 0;
+		for(Seguro i: listaSeguros)
+		{
+			receita += i.getValorMensal();
+		}
+		return receita;
+	}
 	
 	public String getNome() {
 		return nome;

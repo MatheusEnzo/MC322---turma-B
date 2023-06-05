@@ -42,7 +42,7 @@ public class Frota
 	@Override
 	public String toString()
 	{
-		String s = "Código: " + code + "Veículos:";
+		String s = "Código: " + code + ", Veículos:";
 		for(Veiculo i:listaVeiculos)
 		{
 			s += " [" + i + "]";

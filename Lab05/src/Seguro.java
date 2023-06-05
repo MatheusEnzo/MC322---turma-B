@@ -6,13 +6,13 @@ import java.text.SimpleDateFormat;
 
 public abstract class Seguro
 {
-	public final int id;
-	public Date dataInicio;
-	public Date dataFim;
-	public Seguradora seguradora;
-	public ArrayList<Sinistro> listaSinistros;
-	public ArrayList<Condutor> listaCondutores;
-	public double valorMensal;
+	private final int id;
+	private Date dataInicio;
+	private Date dataFim;
+	private Seguradora seguradora;
+	private ArrayList<Sinistro> listaSinistros;
+	private ArrayList<Condutor> listaCondutores;
+	private double valorMensal;
 	
 	private static int id_seguro = 1;
 
@@ -40,6 +40,8 @@ public abstract class Seguro
 	public abstract boolean gerarSinistro(Date data, String endereco, String cpf);
 	
 	public abstract double calcularValor();
+	
+	public abstract Cliente getCliente();
 
 	public Seguradora getSeguradora() {
 		return seguradora;

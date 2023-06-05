@@ -15,7 +15,7 @@ public abstract class Cliente
 		this.email = email;
 	}
 
-	public abstract String getId();
+	public abstract String getIdentificacao();
 	
 	public String getNome() {
 		return nome;
