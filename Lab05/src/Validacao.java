@@ -164,6 +164,13 @@ public class Validacao
 		{
 			if(placa.length()==7)
 			{
+				for (int i=0; i<placa.length(); i++)
+				{
+		            if (!Character.isLetterOrDigit(placa.charAt(i)))
+		            {
+		                return false;
+		            }
+		        }
 				return true;
 			}
 			return false;

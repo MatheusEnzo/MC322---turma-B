@@ -1,10 +1,9 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public class Frota
 {
 	private final int code;
-	private List<Veiculo> listaVeiculos;
+	private ArrayList<Veiculo> listaVeiculos;
 	
 	private static int codigo=1;
 	
@@ -14,15 +13,29 @@ public class Frota
 		this.listaVeiculos = new ArrayList<Veiculo>();
 	}
 
+	public boolean addVeiculo(Veiculo veiculo)
+	{
+		return listaVeiculos.add(veiculo);
+	}
+	
+	public boolean removeVeiculo(Veiculo veiculo)
+	{
+		if(listaVeiculos.contains(veiculo))
+		{
+			return listaVeiculos.remove(veiculo);
+		}
+		return false;
+	}
+	
 	public int getCode() {
 		return code;
 	}
 
-	public List<Veiculo> getListaVeiculos() {
+	public ArrayList<Veiculo> getListaVeiculos() {
 		return listaVeiculos;
 	}
 
-	public void setListaVeiculos(List<Veiculo> listaVeiculos) {
+	public void setListaVeiculos(ArrayList<Veiculo> listaVeiculos) {
 		this.listaVeiculos = listaVeiculos;
 	}
 
@@ -37,13 +50,4 @@ public class Frota
 		return s;
 	}
 	
-	public boolean addVeiculo()
-	{
-		// Ver se recebe veiculo ou parametros do veiculo como argumento
-	}
-	
-	public boolean removeVeiculo()
-	{
-		// Ver se recebe veiculo ou parametros do veiculo como argumento
-	}
 }

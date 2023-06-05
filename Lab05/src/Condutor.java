@@ -1,6 +1,5 @@
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Condutor
 {
@@ -10,7 +9,7 @@ public class Condutor
 	private String endereco;
 	private String email;
 	private Date dataNascimento;
-	private List<Sinistro> listaSinistros;
+	private ArrayList<Sinistro> listaSinistros;
 	
 	public Condutor(String cpf, String nome, String telefone, String endereco, String email, Date dataNascimento)
 	{
@@ -23,12 +22,9 @@ public class Condutor
 		this.listaSinistros = new ArrayList<Sinistro>();
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
+	public boolean adicionarSinistro(Sinistro sinistro)
+	{
+		return listaSinistros.add(sinistro);
 	}
 
 	public String getTelefone() {
@@ -55,33 +51,20 @@ public class Condutor
 		this.email = email;
 	}
 
+	public String getCpf() {
+		return cpf;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
 	public Date getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-
-	public List<Sinistro> getListaSinistros() {
+	public ArrayList<Sinistro> getListaSinistros() {
 		return listaSinistros;
 	}
-
-	public void setListaSinistros(List<Sinistro> listaSinistros) {
-		this.listaSinistros = listaSinistros;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
 	
-	public String toString()
-	{
-		
-	}
-	
-	public boolean adicionarSinistro()
-	{
-		// Ver qual sera o argumento da funcao
-	}
 }

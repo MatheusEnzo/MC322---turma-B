@@ -1,13 +1,12 @@
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class ClientePJ extends Cliente
 {
 	private final String cnpj;
 	private Date dataFundacao;
 	private int qtdeFuncionarios;
-	private List<Frota> listaFrota;
+	private ArrayList<Frota> listaFrota;
 	
 	ClientePJ(String nome, String telefone, String endereco, String email,
 			String cnpj, Date dataFundacao, int qtdeFuncionarios)
@@ -20,13 +19,49 @@ public class ClientePJ extends Cliente
 		this.listaFrota = new ArrayList<Frota>();
 	}
 	
-	//Getters e setters
+	public boolean cadastrarFrota(Frota frota)
+	{
+		return listaFrota.add(frota);
+	}
+	
+	public boolean atualizarFrota(int code, int opcao, Veiculo veiculo)
+	{
+		for(int i=0; i<listaFrota.size(); i++)
+		{
+			if(listaFrota.get(i).getCode() == code)
+			{
+				if(opcao==0)
+				{
+					listaFrota.remove(i);
+					return true;
+				}
+				else if(opcao==1)
+				{
+					return listaFrota.get(i).addVeiculo(veiculo);
+				}
+				else
+				{
+					return listaFrota.get(i).removeVeiculo(veiculo);
+				}
+			}
+		}
+		return false;
+	}
+	
+	public ArrayList<Veiculo> getVeiculosPorFrota(int code)
+	{
+		for(Frota i : listaFrota)
+		{
+			if(i.getCode() == code)
+			{
+				return i.getListaVeiculos();
+			}
+		}
+		return null;
+	}
+	
 	public Date getDataFundacao() {
 		return dataFundacao;
-	}
-
-	public void setDataFundacao(Date dataFundacao) {
-		this.dataFundacao = dataFundacao;
 	}
 
 	public int getQtdeFuncionarios() {
@@ -37,20 +72,15 @@ public class ClientePJ extends Cliente
 		this.qtdeFuncionarios = qtdeFuncionarios;
 	}
 
-	public List<Frota> getListaFrota() {
+	public ArrayList<Frota> getListaFrota() {
 		return listaFrota;
 	}
 
-	public void setListaFrota(List<Frota> listaFrota) {
-		this.listaFrota = listaFrota;
-	}
-
-	public String getCnpj() {
+	public String getId() {
 		return cnpj;
 	}
 	
 	@Override
-	// String no formato de impressao
 	public String toString()
 	{
 		String string = super.toString();
@@ -62,22 +92,5 @@ public class ClientePJ extends Cliente
 			string += i + "\n";
 		}
 		return string;
-	}
-	
-	public boolean cadastrarFrota(Frota frota)
-	{
-		//Validar cada placa de veiculo
-		
-		return listaFrota.add(frota);
-	}
-	
-	public boolean atualizarFrota()
-	{
-		
-	}
-	
-	public getVeiculosPorFrota()
-	{
-		
 	}
 }

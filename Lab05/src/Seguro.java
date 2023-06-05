@@ -1,4 +1,80 @@
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Calendar;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
-public class Seguro {
+public abstract class Seguro
+{
+	public final int id;
+	public Date dataInicio;
+	public Date dataFim;
+	public Seguradora seguradora;
+	public ArrayList<Sinistro> listaSinistros;
+	public ArrayList<Condutor> listaCondutores;
+	public double valorMensal;
+	
+	private static int id_seguro = 1;
 
+	public Seguro(Seguradora seguradora) throws ParseException
+	{
+		this.seguradora = seguradora;
+		this.listaSinistros = new ArrayList<Sinistro>();
+		this.listaCondutores = new ArrayList<Condutor>();
+		this.id = id_seguro++;
+	
+		Date dataAtual = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		this.dataInicio = sdf.parse(sdf.format(dataAtual));
+	
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(dataAtual);
+		calendar.add(Calendar.YEAR, 1);
+		this.dataFim = sdf.parse(sdf.format(calendar.getTime()));
+	}
+	
+	public abstract boolean autorizarCondutor(Condutor condutor);
+	
+	public abstract boolean desautorizarCondutor(String cpf);
+	
+	public abstract boolean gerarSinistro(Date data, String endereco, String cpf);
+	
+	public abstract double calcularValor();
+
+	public Seguradora getSeguradora() {
+		return seguradora;
+	}
+
+	public void setSeguradora(Seguradora seguradora) {
+		this.seguradora = seguradora;
+	}
+
+	public double getValorMensal() {
+		return valorMensal;
+	}
+
+	public void setValorMensal(double valorMensal) {
+		this.valorMensal = valorMensal;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public Date getDataInicio() {
+		return dataInicio;
+	}
+
+	public Date getDataFim() {
+		return dataFim;
+	}
+
+	public ArrayList<Sinistro> getListaSinistros() {
+		return listaSinistros;
+	}
+
+	public ArrayList<Condutor> getListaCondutores() {
+		return listaCondutores;
+	}
 }
+

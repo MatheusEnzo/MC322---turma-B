@@ -21,6 +21,26 @@ public class ClientePF extends Cliente
 		this.dataNascimento = dataNascimento;
 		this.listaVeiculos = new ArrayList<Veiculo>();
 	}
+	
+	public boolean cadastrarVeiculo(String placa, String marca, String modelo, int anoFabricacao)
+	{
+		// Verificacao da placa
+		Veiculo v = new Veiculo(placa, marca, modelo, anoFabricacao);
+		return listaVeiculos.add(v);
+	}
+	
+	public boolean removerVeiculo(String placa)
+	{
+		for(int i=0; i<listaVeiculos.size(); i++)
+		{
+			if(listaVeiculos.get(i).getPlaca().equals(placa))
+			{
+				listaVeiculos.remove(i);
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public String getGenero() {
 		return genero;
@@ -54,7 +74,7 @@ public class ClientePF extends Cliente
 		this.listaVeiculos = listaVeiculos;
 	}
 
-	public String getCpf() {
+	public String getId() {
 		return cpf;
 	}
 
@@ -67,23 +87,5 @@ public class ClientePF extends Cliente
 			s += " [" + i + "]";
 		}
 		return s;
-	}
-	
-	public boolean cadastrarVeiculo(String placa, String marca, String modelo, int anoFabricacao)
-	{
-		// Verificacao da placa
-		Veiculo v = new Veiculo(placa, marca, modelo, anoFabricacao);
-		return listaVeiculos.add(v);
-	}
-	
-	public boolean removerVeiculo(String placa)
-	{
-		for(int i=0; i<listaVeiculos.size(); i++)
-		{
-			if(listaVeiculos.get(i).getPlaca().equals(placa))
-			{
-				//Implementar funcao considerando remocao dos sinistros
-			}
-		}
 	}
 }
