@@ -32,16 +32,16 @@ public class ClientePJ extends Cliente
 			{
 				if(opcao==0)
 				{
-					listaFrota.remove(i);
-					return true;
+					return listaFrota.get(i).addVeiculo(veiculo);
 				}
 				else if(opcao==1)
 				{
-					return listaFrota.get(i).addVeiculo(veiculo);
+					return listaFrota.get(i).removeVeiculo(veiculo);
 				}
 				else
 				{
-					return listaFrota.get(i).removeVeiculo(veiculo);
+					listaFrota.remove(i);
+					return true;
 				}
 			}
 		}

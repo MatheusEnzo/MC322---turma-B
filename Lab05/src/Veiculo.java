@@ -57,6 +57,6 @@ public class Veiculo
 	// Devolve a string com todos atributos no formato para impressao
 	public String toString()
 	{
-		return "Marca: " + marca + ", Modelo: " + modelo + ", Placa: " + placa + ", Ano de Fabricação: " + anoFabricacao ;
+		return "Marca: " + marca + ", Modelo: " + modelo + ", Placa: " + placa + ", Ano de Fabricação: " + anoFabricacao;
 	}
 }

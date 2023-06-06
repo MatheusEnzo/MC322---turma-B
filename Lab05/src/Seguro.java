@@ -78,5 +78,24 @@ public abstract class Seguro
 	public ArrayList<Condutor> getListaCondutores() {
 		return listaCondutores;
 	}
+
+	@Override
+	public String toString() {
+		String s = "ID: " + id + "\nData de Inicio: " + dataInicio + "\nData de Fim: " + dataFim + "\nSeguradora: " + seguradora
+				+ "\nLista de Sinistros:";
+				
+		for(Sinistro i: listaSinistros)
+		{
+			s += " ["+ i + "]";
+		}
+		s += "\nLista de Condutores:";
+		for(Condutor i: listaCondutores)
+		{
+			s += " ["+ i + "]";
+		}
+		s += "\nValor Mensal: "+ valorMensal;
+		return s;
+	}
+	
 }
 

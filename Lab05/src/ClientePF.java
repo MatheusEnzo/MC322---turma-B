@@ -24,9 +24,12 @@ public class ClientePF extends Cliente
 	
 	public boolean cadastrarVeiculo(String placa, String marca, String modelo, int anoFabricacao)
 	{
-		// Verificacao da placa
-		Veiculo v = new Veiculo(placa, marca, modelo, anoFabricacao);
-		return listaVeiculos.add(v);
+		if(Validacao.verificarPlaca(placa))
+		{
+			Veiculo v = new Veiculo(placa, marca, modelo, anoFabricacao);
+			return listaVeiculos.add(v);
+		}
+		return false;
 	}
 	
 	public boolean removerVeiculo(String placa)

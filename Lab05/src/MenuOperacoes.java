@@ -14,11 +14,16 @@ public enum MenuOperacoes {
 			SubmenuOpcoes.LISTAR_CLIENTES,
 			SubmenuOpcoes.LISTAR_SEGUROS_CLIENTES,
 			SubmenuOpcoes.LISTAR_SINISTROS_CLIENTES,
+			SubmenuOpcoes.LISTAR_VEICULOS_FROTA,
 			SubmenuOpcoes.VOLTAR
 	}),
 	EXCLUIR("Excluir", new SubmenuOpcoes[] {
 			SubmenuOpcoes.EXCLUIR_CLIENTE,
 			SubmenuOpcoes.EXCLUIR_VEICULO,
+			SubmenuOpcoes.VOLTAR}),
+	ATUALIZAR("Atualizar frota (pessoa juridica)", new SubmenuOpcoes[] {
+			SubmenuOpcoes.ADICIONAR_VEICULO,
+			SubmenuOpcoes.REMOVER_VEICULO,
 			SubmenuOpcoes.EXCLUIR_FROTA,
 			SubmenuOpcoes.VOLTAR}),
 	GERAR_SEGURO("Gerar Seguro", new SubmenuOpcoes[] {SubmenuOpcoes.VOLTAR}),

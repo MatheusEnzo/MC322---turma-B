@@ -66,5 +66,11 @@ public class Condutor
 	public ArrayList<Sinistro> getListaSinistros() {
 		return listaSinistros;
 	}
+
+	@Override
+	public String toString() {
+		return "CPF: " + cpf + ", Nome: " + nome + ", Telefone: " + telefone + ", Endereco: " + endereco
+				+ ", Email: " + email + ", Data de Nascimento: " + dataNascimento + "]";
+	}
 	
 }

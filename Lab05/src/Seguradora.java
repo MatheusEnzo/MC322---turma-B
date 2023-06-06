@@ -59,6 +59,7 @@ public class Seguradora
 	
 	public boolean gerarSeguro(String placa, String cpf) throws ParseException
 	{
+		cpf = cpf.replaceAll("[^0-9]", "");
 		for(Seguro teste : listaSeguros)
 		{
 			if(teste.getClass() == SeguroPF.class)
@@ -69,6 +70,7 @@ public class Seguradora
 				}
 			}
 		}
+		
 		
 		for(int i=0; i<listaClientes.size(); i++)
 		{
@@ -88,6 +90,7 @@ public class Seguradora
 	}
 	public boolean gerarSeguro(int codigo, String cnpj) throws ParseException
 	{
+		cnpj = cnpj.replaceAll("[^0-9]", "");
 		for(Seguro teste : listaSeguros)
 		{
 			if(teste.getClass() == SeguroPJ.class)
@@ -147,18 +150,45 @@ public class Seguradora
 		return false;
 	}
 	
-	public boolean cadastrarCliente()
+	public boolean cadastrarCliente(Cliente cliente)
 	{
-		
+		for(Cliente i: listaClientes)
+		{
+			if(cliente.getIdentificacao().equals(i.getIdentificacao()))
+			{
+				return false;
+			}
+		}
+		listaClientes.add(cliente);
+		return true;
 	}
 	
-	public boolean removerCliente()
+	public boolean removerCliente(String identificacao)
 	{
-		
+		identificacao = identificacao.replaceAll("[^0-9]", "");
+		for(int i=0; i<listaClientes.size(); i++)
+		{
+			if(listaClientes.get(i).getIdentificacao().equals(identificacao))
+			{
+				listaClientes.remove(i);
+				
+				for(int j=0; j<listaSeguros.size(); j++)
+				{
+					if(listaSeguros.get(j).getCliente().getIdentificacao().equals(identificacao))
+					{
+						listaSeguros.remove(j);
+						j=j-1;
+					}
+				}
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public ArrayList<Seguro> getSegurosPorCliente(String identificacao)
 	{
+		identificacao = identificacao.replaceAll("[^0-9]", "");
 		ArrayList<Seguro> segurosCliente = new ArrayList<Seguro>();
 		for(Seguro i : listaSeguros)
 		{
@@ -172,6 +202,7 @@ public class Seguradora
 	
 	public ArrayList<Sinistro> getSinistrosPorCliente(String identificacao)
 	{
+		identificacao = identificacao.replaceAll("[^0-9]", "");
 		ArrayList<Sinistro> sinistrosCliente = new ArrayList<Sinistro>();
 		for(Seguro i : listaSeguros)
 		{
@@ -244,4 +275,11 @@ public class Seguradora
 	{
 		return listaSeguradoras;
 	}
+
+	@Override
+	public String toString() {
+		return "[CNPJ: " + cnpj + ", Nome: " + nome + ", Telefone: " + telefone + ", Endereco: " + endereco
+				+ ", Email: " + email + "]";
+	}
+	
 }
